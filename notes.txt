@@ -1,0 +1,15 @@
+conn.commit():
+
+Saves the changes to the file. 
+Without commit(), database changes stay temporary in memory and disappear.
+
+conn.close()
+
+Closes the database connection to 
+'free up memory on your computer.
+
+init_db():
+
+Calls the function immediately when app.py runs, ensuring the table is created before anyone tries 
+to save pixel art.
+

@@ -1,0 +1,305 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f0e8;
+  color: #3d3529;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+header {
+  text-align: center;
+  padding: 16px;
+  background-color: #ebe4d8;
+  border-bottom: 2px solid #c9b99a;
+}
+
+header h1 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 1.2rem;
+  color: #b0603a;
+  letter-spacing: 2px;
+}
+
+main {
+  display: flex;
+  flex: 1;
+}
+
+.toolbar {
+  width: 200px;
+  background-color: #ebe4d8;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-right: 2px solid #c9b99a;
+}
+
+.canvas-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+canvas {
+  border: 2px solid #c9b99a;
+  cursor: crosshair;
+}
+
+.tool-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tool-section h3 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8a7d6b;
+}
+
+.tool-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.tool-btn {
+  width: 48px;
+  height: 48px;
+  font-size: 1.4rem;
+  border: 2px solid #c9b99a;
+  border-radius: 8px;
+  background-color: #f5f0e8;
+  color: #3d3529;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.tool-btn:hover {
+  background-color: #e2d9c8;
+}
+
+.tool-btn.active {
+  background-color: #b0603a;
+  border-color: #b0603a;
+  color: #f5f0e8;
+}
+
+.color-palette {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.color-swatch {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 2px solid #c9b99a;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.color-swatch.active {
+  border-color: #b0603a;
+  transform: scale(1.15);
+}
+
+.custom-color-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #8a7d6b;
+  cursor: pointer;
+}
+
+.custom-color-label input[type="color"] {
+  width: 36px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
+select {
+  padding: 8px;
+  border: 2px solid #c9b99a;
+  border-radius: 8px;
+  background-color: #f5f0e8;
+  color: #3d3529;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.export-btn {
+  margin-top: auto;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #b0603a;
+  color: #f5f0e8;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.export-btn:hover {
+  background-color: #965030;
+}
+
+@media (max-width: 640px) {
+  main {
+    flex-direction: column;
+  }
+
+  .toolbar {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    border-bottom: 2px solid #c9b99a;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .tool-section {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .color-palette {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  .canvas-container {
+    padding: 12px;
+  }
+
+  .export-btn {
+    margin-top: 0;
+  }
+}
+.save-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #b0603a;
+  color: #f5f0e8;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+.save-btn:hover {
+  background-color: #965030;
+}
+.save-container {
+  width: 520px;
+  display: none;
+  flex-direction: column;
+  height: 312px;
+  border: #73634c solid 2px;
+  background-color: #3d3529;
+  border-radius: 15px;
+  position: absolute;
+  z-index: 1000;
+  top: 40%;
+  left: 40%;
+}
+.save-title-container {
+  flex: 1;
+  padding: 24px 32px;
+}
+.save-container.active {
+  display: flex;
+}
+
+.save-btns {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  border: #73634c solid 2px;
+  padding: 20px 32px;
+  background: #342d23;
+  height: 88px;
+}
+.conf-h {
+  color: #fff4e2;
+  font-family: "Press Start 2P", monospace;
+  font-size: 18px;
+  padding-bottom: 12px;
+}
+.painting-title {
+  color: #c9b99a;
+  font-size: 16px;
+  margin-top: 12px;
+}
+.painting-title-container {
+  margin-top: 12px;
+}
+.pixel-title {
+  margin-top: 5px;
+  width: 456px;
+  height: 60px;
+  border-radius: 12px;
+  background-color: #c9b99a;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 22px;
+  padding-left: 20px;
+  color: #3d3529;
+  font-weight: bold;
+}
+.canc-btn {
+  height: 48px;
+  width: 108px;
+  border-radius: 10px;
+  border: 2px solid #c9b99a;
+  background-color: #73634c;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #c9b99a;
+  transition: 0.1s;
+}
+.conf-btn {
+  height: 48px;
+  width: 128px;
+  border-radius: 10px;
+  border: 2px solid #b0603a;
+  background-color: #b0603a;
+  font-weight: bold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff4e2;
+  transition: 0.1s;
+}
+.conf-btn:hover {
+  background-color: #863c19;
+}
+.canc-btn:hover {
+  background-color: #554733;
+}
+#error-msg{
+  display: none;
+  color: rgb(214, 103, 103);
+  font-size:15px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
