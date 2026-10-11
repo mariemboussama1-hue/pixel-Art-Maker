@@ -4,7 +4,9 @@ import json
 from flask import Flask, render_template, request, jsonify
 
 
-app = Flask(__name__)
+app = Flask(__name__,
+            template_folder='../templates',
+            static_folder='../static')
 
 
 def get_db_connection():
@@ -21,7 +23,8 @@ def init():
       title TEXT NOT NULL,
       gridSize TEXT NOT NULL,
       grid TEXT NOT NULL,
-      date TIMESTAMP DEFAULT CURRENT_TIMESTAMP)
+      date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      img TEXT NOT NULL)
     ''')
     conn.commit()
     conn.close()
@@ -43,10 +46,10 @@ def save():
     title = str(data.get("title"))
     gridSize = str(data.get("gridSize"))
     grid = json.dumps(data.get("grid"))
-
+    img = data.get("img")
     conn = sqlite3.connect('pixel_art.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO myart (title,gridSize,grid) VALUES (?,?,?)", (title, gridSize, grid))
+    cursor.execute("INSERT INTO myart (title,gridSize,grid,img) VALUES (?,?,?,?)", (title, gridSize, grid, img))
     conn.commit()
     conn.close()
 
@@ -56,7 +59,18 @@ def save():
 @app.route("/gallery")
 def gallery():
 
-    return render_template("myGallery.html")
+    conn = sqlite3.connect('pixel_art.db')
+    cursor = conn.cursor()
+    cursor.execute('SELECT id,title,date,img from myart')
+    rows = cursor.fetchall()
+    conn.close()
+    art_List = []
+    for row in rows:
+        art_List.append({"id": row[0],
+                         "title": row[1],
+                         "date": row[2],
+                         "img": row[3]})
+    return jsonify(art_List)
 
 
 if __name__ == "__main__":

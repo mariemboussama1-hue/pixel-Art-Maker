@@ -240,9 +240,29 @@ cancel.addEventListener("click", () => {
 
 const conf = document.getElementById("conf-btn");
 conf.addEventListener("click", async () => {
+  const newcan = document.createElement("canvas");
+  const expcxt = newcan.getContext("2d");
+  const exportCellSize = Math.max(16, Math.floor(512 / gridSize));
+  newcan.width = gridSize * exportCellSize;
+  newcan.height = gridSize * exportCellSize;
+  for (let row = 0; row < gridSize; row++) {
+    for (let col = 0; col < gridSize; col++) {
+      expcxt.fillStyle = grid[row][col];
+      expcxt.fillRect(
+        col * exportCellSize,
+        row * exportCellSize,
+        exportCellSize,
+        exportCellSize
+      );
+    }
+  }
+  const link = document.createElement("a");
+  link.download = "pixel-art.png";
+  link.href = newcan.toDataURL("image/png");
+  const img = link.href;
   const saveTitle = document.getElementById("pixel-title");
   const saveTitleText = saveTitle.value.trim();
-  const saveElem = { title: saveTitle, gridSize: gridSize, grid: grid };
+  const saveElem = { title: saveTitleText, gridSize: gridSize, grid: grid, img:img };
   if (saveTitleText === "") {
     const error = document.getElementById("error-msg");
     error.textContent = "Please fill in the title!";
