@@ -83,6 +83,7 @@ footer {
 .image-container {
   height: 200px;
   width: 437px;
+  position: relative;
 }
 .image-container img {
   height: 100%;
@@ -90,6 +91,7 @@ footer {
   border-radius: 10px;
   margin-left: 7px;
   margin-top: 7px;
+  
 }
 .title-art {
   color: #3d3529;
@@ -137,7 +139,19 @@ footer {
 
   background-color: #c9b99a;
 }
+.trash{
+  background-color:#b05f3ae3 ;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  z-index: 9;
+  position: absolute;
+  margin-left: 3px;
+  margin-top: 2px;
+  padding-left: 14px;
+  padding-top: 0%;
 
+}
 @media (max-width: 1400px) {
   .art-grid-container {
     grid-template-columns: 1fr 1fr;

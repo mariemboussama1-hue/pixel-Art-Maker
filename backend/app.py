@@ -73,5 +73,15 @@ def gallery():
     return jsonify(art_List)
 
 
+@app.route("/api/trashwork/<int:id>", methods=['DELETE'])
+def trashwork(id):
+    conn = sqlite3.connect('pixel_art.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM myart WHERE id=?', (id,))
+    conn.commit()
+    conn.close()
+    return{'msg': 'artwork is deleted'}, 200
+
+
 if __name__ == "__main__":
     app.run(debug=True)

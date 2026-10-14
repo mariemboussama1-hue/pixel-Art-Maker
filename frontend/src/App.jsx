@@ -17,6 +17,16 @@ function App() {
     }
     fetchArtworks();
   },[]);
+ const handleDelete = async(id) =>{
+  try{  const response=await fetch(`/api/trashwork/${id}`,{ method:'DELETE' });
+  if (response.ok){
+    setArtworks(artworks.filter((art)=> art.id !== id));
+  }
+  } catch(error)
+  {console.error("suppresion a echoué"); 
+  }
+ }
+
   return (
     <>
       <header>
@@ -35,11 +45,12 @@ function App() {
       <section>
         <div className="art-grid-container"> {artworks.map((art) => (
           <div className="art-container" key={art.id}>
+          <button className='trash' onClick={()=>handleDelete(art.id)}>x</button>
           <div className="image-container"  ><img src={art.img} alt={art.title}/></div>
           <div>
             <p className="title-art" >{art.title}</p>
             <div className='enreg-cont'><span className="pixel-square"></span>
-             <p className='enreg'>ENREGITR LE</p> </div>
+             <p className='enreg'>ENREGITRE LE</p> </div>
             <p className="date-art"   >{art.date}</p>
           </div>
         </div>))}</div>
